@@ -8,17 +8,21 @@ public class EmptySudokuTester {
         int cantidad = teclado.nextInt();
 
         for (int i = 0; i < cantidad; i++) {
-            char sudoku[][] = new char[9][9];
-            String valor;
-            valor = teclado.next();
-            int caracter = 0;
-
+            char[][] sudoku = new char[9][9];
             for (int j = 0; j < sudoku.length; j++) {
+                String valor;
+                teclado.nextLine();
+                valor = teclado.next();
+
+                int caracter = 0;
+
                 for (int k = 0; k < sudoku.length; k++) {
                     sudoku[j][k] = valor.charAt(caracter);
                     caracter++;
                 }
             }
+
+            System.out.println();
 
             int contadorNums = 0;
 
@@ -46,16 +50,32 @@ public class EmptySudokuTester {
             }
 
             if (sudokuCorrecto && contadorNums <33) {
-                System.out.println("SI");
+                System.out.println("SI\n");
             } else {
-                System.out.println("NO");
+                System.out.println("NO\n");
             }
         }
+        teclado.close();
     }
 }
-// ---5-92-767-3----4-----2----492---85---------23---416----1-----5----8-918-49-7--- (SI)
-// ---5-92-767-3----4-----2----492---85---------23---416----------5----8-918-49-7--- (NO)
-// 2--5-92-767-3----4-----2----492---85---------23---416----1-----8----5-918-49-7--6 (SI)
-// -----92-767-3----4-----2----499---85-3-----2-28---416----4-----5----8-918-49----- (SI)
-// 1-------2---------------------------------------------------------------3-------4 (SI)
-// 123456789234567891345678912456789123567891234678912345789123456891234567987654321 (NO)
+/** ---5-92-7
+    67-3----4
+    -----2---
+    -492---85
+     ---------
+     23---416-
+     ---1-----
+     5----8-91
+     8-49-7---
+        SI
+
+     ---5-92-7
+     67-3----4
+     -----2---
+     -492---85
+     ---------
+     23---416-
+     ---------
+     5----8-91
+     8-49-7---
+        NO **/
