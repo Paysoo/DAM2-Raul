@@ -24,22 +24,16 @@ public class EmptySudokuTester {
 
             boolean sudokuCorrecto = true;
 
-            int x = sudoku.length;
-            int y = sudoku.length;
+            int x = 8;
+            int y = 8;
 
-            for (int j = 0; j < sudoku.length; j++) {
+            for (int j = 0; j < 5; j++) {
                 for (int k = 0; k < sudoku.length; k++) {
 
-                    // Si hay un numero en la casilla y en su casilla opuesta suma 2 numeros al contador y se mantiene
-                    // en correcto
-                    if ((sudoku[j][k] != '-' && sudoku[j][k] != '-')) {
-                        contadorNums += 2;
+                    if ((sudoku[j][k] != '-' && sudoku[x][y] != '-')) {
+                        contadorNums = contadorNums + 2;
+                    } else if ((sudoku[x][y] == '-' && sudoku[j][k] == '-')) {
 
-                        // Si no hay un numero en la casilla ni en su casilla opuesta se mantiene en correcto
-                    } else if ((sudoku[x][y] == '-' && sudoku[x][y] == '-')) {
-
-                        // Si el valor de la casilla y su casilla opuesta son diferentes, marca el sudoku como
-                        // incorrecto y termina los bucles for
                     } else {
                         sudokuCorrecto = false;
                         j = sudoku.length;
