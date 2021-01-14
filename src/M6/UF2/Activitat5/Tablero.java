@@ -106,7 +106,6 @@ public class Tablero {
 						posicionNuevaValida = true;
 						
 					} else {
-						
 						posicionNuevaValida = false;
 					
 					}

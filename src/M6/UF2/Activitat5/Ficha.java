@@ -124,7 +124,6 @@ public class Ficha {
 			valido = false;
 
 		}
-
 		return valido;
 	}
 
@@ -144,7 +143,6 @@ public class Ficha {
 			valido = false;
 
 		}
-
 		return valido;
 	}
 
@@ -185,7 +183,6 @@ public class Ficha {
 							break;
 						}
 					}
-					
 				} else {
 					for (int i = columnaNueva; i > columnaActual+1; i--) {
 						if (!(tablero[filaNueva][i] == null)) {
@@ -197,11 +194,9 @@ public class Ficha {
 			}
 
 		} else {
-
 			valido = false;
 
 		}
-
 		return valido;
 	}
 
@@ -224,8 +219,6 @@ public class Ficha {
 
 		return valido;
 	}
-
-
 
 	private boolean movimientoAlfil(int filaActual, int columnaActual, int filaNueva, int columnaNueva,Ficha[][] tablero) {
 		boolean valido = false;
