@@ -14,7 +14,7 @@ public class Tablero {
 
 	Ficha ficha = new Ficha();
 	
-	Damas ajedrez = new Damas(null);
+	Damas damas = new Damas(null);
 	
 	public Tablero() {
 		
@@ -61,7 +61,7 @@ public class Tablero {
 		int columnaActual = 0;
 		int filaNueva = 0;
 		int columnaNueva = 0;
-		String jugador = ajedrez.getJugador();
+		String jugador = damas.getJugador();
 
 		do {
 			System.out.println("En que posicion est� la ficha que quieres mover?");
