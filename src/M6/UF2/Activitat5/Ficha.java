@@ -17,93 +17,93 @@ public class Ficha {
 
 	public boolean movimientoValido(int filaActual, int columnaActual, int filaNueva, int columnaNueva, Ficha[][] tablero, char tipo) {
 
-		boolean movimientoValido = false;
+		boolean movimientoValido = true;
 
 		// PEONES (hacen falta dos condiciones porque solo se mueven en una direccion)
-		if (tipo == 'P') {
-
-
-			if (movimientoPeonBlanco(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {			
-				movimientoValido = true;	
-
-			} else {
-
-				movimientoValido = false;
-
-			}
-
-		} else if (tipo == 'p') {
-
-			if (movimientoPeonNegro(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
-
-				movimientoValido = true;
-
-			} else {
-
-				movimientoValido = false;
-
-			}
-
-			// TORRES
-		} else if (tipo == 'T' || tipo == 't') {
-
-			if (movimientoTorre(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
-
-				movimientoValido = true;
-
-			} else {
-
-				movimientoValido = false;
-
-			}
-
-		} else if (tipo == 'C' || tipo == 'c') {
-
-			if (movimientoCaballo(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
-
-				movimientoValido = true;
-
-			} else {
-
-				movimientoValido = false;
-			}
-
-		} else if (tipo == 'A' || tipo == 'a') {
-
-			if (movimientoAlfil(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
-
-				movimientoValido = true;
-
-			} else {
-
-				movimientoValido = false;
-			}
-
-		} else if (tipo == 'K' || tipo == 'k') {
-
-			if (movimientoRey(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
-
-				movimientoValido = true;
-
-			} else {
-
-				movimientoValido = false;
-
-			} 
-
-		} else if (tipo == 'Q' || tipo == 'q') {
-
-			if (movimientoReina(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
-
-				movimientoValido = true;
-
-			} else {
-
-				movimientoValido = false;
-
-			}
-
-		}
+//		if (tipo == 'P') {
+//
+//
+//			if (movimientoPeonBlanco(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
+//				movimientoValido = true;
+//
+//			} else {
+//
+//				movimientoValido = false;
+//
+//			}
+//
+//		} else if (tipo == 'p') {
+//
+//			if (movimientoPeonNegro(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
+//
+//				movimientoValido = true;
+//
+//			} else {
+//
+//				movimientoValido = false;
+//
+//			}
+//
+//			// TORRES
+//		} else if (tipo == 'T' || tipo == 't') {
+//
+//			if (movimientoTorre(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
+//
+//				movimientoValido = true;
+//
+//			} else {
+//
+//				movimientoValido = false;
+//
+//			}
+//
+//		} else if (tipo == 'C' || tipo == 'c') {
+//
+//			if (movimientoCaballo(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
+//
+//				movimientoValido = true;
+//
+//			} else {
+//
+//				movimientoValido = false;
+//			}
+//
+//		} else if (tipo == 'A' || tipo == 'a') {
+//
+//			if (movimientoAlfil(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
+//
+//				movimientoValido = true;
+//
+//			} else {
+//
+//				movimientoValido = false;
+//			}
+//
+//		} else if (tipo == 'K' || tipo == 'k') {
+//
+//			if (movimientoRey(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
+//
+//				movimientoValido = true;
+//
+//			} else {
+//
+//				movimientoValido = false;
+//
+//			}
+//
+//		} else if (tipo == 'Q' || tipo == 'q') {
+//
+//			if (movimientoReina(filaActual, columnaActual, filaNueva, columnaNueva, tablero)) {
+//
+//				movimientoValido = true;
+//
+//			} else {
+//
+//				movimientoValido = false;
+//
+//			}
+//
+//		}
 		return  movimientoValido;
 	}
 

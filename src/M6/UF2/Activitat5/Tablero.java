@@ -122,47 +122,47 @@ public class Tablero {
 	}
 	
 	public boolean partidaEnCurso() {
-		boolean reyesVivos = false;
+		boolean reyesVivos = true;
 
-		int reyes = 0;
-		int reyBlanco = 0;
-		int reyNegro = 0;
-
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-
-				if (this.fichas[i][j] != null) {
-
-					char ficha = this.fichas[i][j].getTipo();
-
-					if (ficha == 'K' || ficha == 'k') {
-						reyes++;
-						if (ficha == 'K') {
-							reyBlanco++;
-						} else {
-							reyNegro++;
-						}
-					}
-				}
-
-			}
-		}
-
-		if (reyes == 2) {
-			reyesVivos = true;
-
-		} else {
-			
-			if (reyBlanco == 1) {
-				System.out.println("La partida ha terminado, ganan las blancas");
-
-			} else {
-				System.out.println("La partida ha terminado, ganan las negras");
-
-			}
-			
-			reyesVivos = false;
-		}
+//		int reyes = 0;
+//		int reyBlanco = 0;
+//		int reyNegro = 0;
+//
+//		for (int i = 0; i < 8; i++) {
+//			for (int j = 0; j < 8; j++) {
+//
+//				if (this.fichas[i][j] != null) {
+//
+//					char ficha = this.fichas[i][j].getTipo();
+//
+//					if (ficha == 'K' || ficha == 'k') {
+//						reyes++;
+//						if (ficha == 'K') {
+//							reyBlanco++;
+//						} else {
+//							reyNegro++;
+//						}
+//					}
+//				}
+//
+//			}
+//		}
+//
+//		if (reyes == 2) {
+//			reyesVivos = true;
+//
+//		} else {
+//
+//			if (reyBlanco == 1) {
+//				System.out.println("La partida ha terminado, ganan las blancas");
+//
+//			} else {
+//				System.out.println("La partida ha terminado, ganan las negras");
+//
+//			}
+//
+//			reyesVivos = false;
+//		}
 
 		return reyesVivos;
 

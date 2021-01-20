@@ -37,7 +37,6 @@ public class Damas {
 
 		}
 
-
 	}
 
 	public String getJugador() {

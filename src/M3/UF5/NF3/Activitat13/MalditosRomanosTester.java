@@ -1,4 +1,4 @@
-package M3.UF5.NF3.Activitat14;
+package M3.UF5.NF3.Activitat13;
 
 import java.util.Scanner;
 
