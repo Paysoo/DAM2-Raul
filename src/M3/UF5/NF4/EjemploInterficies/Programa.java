@@ -40,7 +40,7 @@ public class Programa implements Comparable{
 
     public static void main(String[] args) {
         Programa p1 = new Programa(100,"notepad++","Notepad", 32);
-        Programa p2 = new Programa(100,"notepad++","Notepad", 64);
+        Programa p2 = new Programa(100,"notepad++a","Notepad", 64);
         System.out.println(p1.compareTo(p2));
 
     }
