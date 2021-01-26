@@ -9,7 +9,16 @@ public class PartidaEntity {
     private int idPartida;
     private String ganador;
 
+    public PartidaEntity(String ganador) {
+        this.ganador = ganador;
+    }
+
+    public PartidaEntity() {
+
+    }
+
     @Id
+    @GeneratedValue
     @Column(name = "idPartida")
     public int getIdPartida() {
         return idPartida;

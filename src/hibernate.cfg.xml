@@ -9,7 +9,7 @@
         <property name="connection.username">root</property>
         <property name="connection.password"/>
 
-<!--         DB schema will be updated if needed -->
+        <!-- DB schema will be updated if needed -->
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="M6.UF2.Activitat5.MovimientosEntity"/>
         <mapping class="M6.UF2.Activitat5.PartidaEntity"/>

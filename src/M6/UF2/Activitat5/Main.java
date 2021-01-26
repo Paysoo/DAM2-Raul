@@ -17,7 +17,7 @@ public class Main {
     static {
         try {
             Configuration configuration = new Configuration();
-            configuration.configure("M6/UF2/Activitat5/hibernate.cfg.xml");
+            configuration.configure();
 
             ourSessionFactory = configuration.buildSessionFactory();
         } catch (Throwable ex) {
@@ -30,19 +30,28 @@ public class Main {
     }
 
     public static void main(final String[] args) throws Exception {
-        final Session session = getSession();
-        try {
-            System.out.println("querying all the managed entities...");
-            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-            for (EntityType<?> entityType : metamodel.getEntities()) {
-                final String entityName = entityType.getName();
-                final Query query = session.createQuery("from " + entityName);
-                System.out.println("executing: " + query.getQueryString());
-                for (Object o : query.list()) {
-                    System.out.println("  " + o);
-                }
-            }
-        } finally {
+        Session session = null;
+        try{
+            session = getSession();
+
+            session.beginTransaction();
+            PartidaEntity partida = new PartidaEntity("X");
+            session.save(partida);
+            session.getTransaction().commit();
+
+            MovimientosEntity movimiento1 = new MovimientosEntity(partida.getIdPartida(), 1, 2, 3, 4);
+
+
+            session.beginTransaction();
+            session.save(movimiento1);
+            session.getTransaction().commit();
+
+            MovimientosEntity movimiento2 = new MovimientosEntity(partida.getIdPartida(), 2, 3, 4, 5);
+            session.beginTransaction();
+            session.save(movimiento2);
+            session.getTransaction().commit();
+
+        } finally{
             session.close();
         }
     }

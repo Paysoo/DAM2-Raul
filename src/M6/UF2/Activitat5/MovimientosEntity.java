@@ -5,8 +5,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "movimientos", schema = "damas")
-@IdClass(MovimientosEntityPK.class)
 public class MovimientosEntity {
+
     private int idMovimiento;
     private int idPartida;
     private int filaOrigen;
@@ -14,7 +14,20 @@ public class MovimientosEntity {
     private int filaDestino;
     private int columnaDestino;
 
+    public MovimientosEntity(int idPartida,int filaOrigen, int columnaOrigen, int filaDestino, int columnaDestino) {
+        this.idPartida = idPartida;
+        this.filaOrigen = filaOrigen;
+        this.columnaOrigen = columnaOrigen;
+        this.filaDestino = filaDestino;
+        this.columnaDestino = columnaDestino;
+    }
+
+    public MovimientosEntity() {
+
+    }
+
     @Id
+    @GeneratedValue
     @Column(name = "idMovimiento")
     public int getIdMovimiento() {
         return idMovimiento;
@@ -24,7 +37,7 @@ public class MovimientosEntity {
         this.idMovimiento = idMovimiento;
     }
 
-    @Id
+    @Basic
     @Column(name = "idPartida")
     public int getIdPartida() {
         return idPartida;
@@ -79,11 +92,11 @@ public class MovimientosEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MovimientosEntity that = (MovimientosEntity) o;
-        return idMovimiento == that.idMovimiento && idPartida == that.idPartida && filaOrigen == that.filaOrigen && columnaOrigen == that.columnaOrigen && filaDestino == that.filaDestino && columnaDestino == that.columnaDestino;
+        return idMovimiento == that.idMovimiento && filaOrigen == that.filaOrigen && columnaOrigen == that.columnaOrigen && filaDestino == that.filaDestino && columnaDestino == that.columnaDestino;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idMovimiento, idPartida, filaOrigen, columnaOrigen, filaDestino, columnaDestino);
+        return Objects.hash(idMovimiento, filaOrigen, columnaOrigen, filaDestino, columnaDestino);
     }
 }
