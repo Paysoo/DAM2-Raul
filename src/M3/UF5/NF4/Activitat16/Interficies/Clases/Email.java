@@ -2,19 +2,37 @@ package M3.UF5.NF4.Activitat16.Interficies.Clases;
 
 import M3.UF5.NF4.Activitat16.Interficies.Interficies.Valida;
 
-class Email implements Valida, Comparable  {
-	private String correo;
+public class Email implements Comparable, Valida {
 
-	public String getCorreo() {
-		return correo;
-	}
+    private String email; // (---@---.---)
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
+    public Email(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public int compareTo(Object o) {
-		return 0;
-	}
+    @Override
+    public boolean check() {
+        String estructuraEmail = "^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$";
+        return this.email.matches(estructuraEmail);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+
+        int devuelve;
+        Email otro = (Email) o;
+
+        if (this.email.equals(otro.email)){
+            devuelve = 0;
+        } else {
+            devuelve = this.email.compareTo(otro.email);
+        }
+
+        return devuelve;
+    }
+
+    @Override
+    public String toString() {
+        return "Email: " + email;
+    }
 }
