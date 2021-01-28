@@ -14,7 +14,7 @@ public class Tablero {
 
 	Ficha ficha = new Ficha();
 	
-	Damas damas = new Damas(null);
+	Main main = new Main(null);
 	
 	public Tablero() {
 		
@@ -51,7 +51,7 @@ public class Tablero {
 		this.fichas = fichas;	
 	}
 	
-	public void moverFicha() {
+	public void moverFicha(int partidaId, MovimientosEntity movimiento) {
 		boolean posicionActualValida = false;
 		boolean posicionNuevaValida = false;
 		
@@ -61,7 +61,7 @@ public class Tablero {
 		int columnaActual = 0;
 		int filaNueva = 0;
 		int columnaNueva = 0;
-		String jugador = damas.getJugador();
+		String jugador = main.getJugador();
 
 		do {
 			System.out.println("En que posicion est� la ficha que quieres mover?");
@@ -100,7 +100,13 @@ public class Tablero {
 				
 					// Llamo al metodo de la clase Ficha para comprobar si el movimiento es valido
 					if (ficha.movimientoValido(filaActual, columnaActual, filaNueva, columnaNueva, fichas, tipo)) {
-						
+
+						movimiento.setIdPartida(partidaId);
+						movimiento.setFilaOrigen(filaActual);
+						movimiento.setColumnaOrigen(columnaActual);
+						movimiento.setFilaDestino(filaNueva);
+						movimiento.setColumnaDestino(columnaNueva);
+
 						fichas[filaActual][columnaActual] = null;
 						fichas[filaNueva][columnaNueva] = new Ficha(tipo, color);
 						posicionNuevaValida = true;
