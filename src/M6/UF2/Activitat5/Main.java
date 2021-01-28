@@ -64,6 +64,8 @@ public class Main {
 
             } while(tablero.partidaEnCurso());
 
+            // poner ganador de partida y guardarla
+
         } finally{
             session.close();
         }

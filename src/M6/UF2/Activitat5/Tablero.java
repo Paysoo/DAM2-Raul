@@ -128,49 +128,39 @@ public class Tablero {
 	}
 	
 	public boolean partidaEnCurso() {
-		boolean reyesVivos = true;
+		boolean blancasVivas = false;
+		boolean negrasVivas = false;
 
-//		int reyes = 0;
-//		int reyBlanco = 0;
-//		int reyNegro = 0;
-//
-//		for (int i = 0; i < 8; i++) {
-//			for (int j = 0; j < 8; j++) {
-//
-//				if (this.fichas[i][j] != null) {
-//
-//					char ficha = this.fichas[i][j].getTipo();
-//
-//					if (ficha == 'K' || ficha == 'k') {
-//						reyes++;
-//						if (ficha == 'K') {
-//							reyBlanco++;
-//						} else {
-//							reyNegro++;
-//						}
-//					}
-//				}
-//
-//			}
-//		}
-//
-//		if (reyes == 2) {
-//			reyesVivos = true;
-//
-//		} else {
-//
-//			if (reyBlanco == 1) {
-//				System.out.println("La partida ha terminado, ganan las blancas");
-//
-//			} else {
-//				System.out.println("La partida ha terminado, ganan las negras");
-//
-//			}
-//
-//			reyesVivos = false;
-//		}
 
-		return reyesVivos;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+
+				if (this.fichas[i][j] != null) {
+
+					String color = this.fichas[i][j].getColor();
+
+					if (color.equalsIgnoreCase("blanca")) {
+						blancasVivas = true;
+
+					} else {
+						negrasVivas = true;
+					}
+				}
+
+			}
+		}
+
+		if (blancasVivas && negrasVivas) {
+			return false;
+
+		} else if (blancasVivas && !negrasVivas){
+				System.out.println("La partida ha terminado, ganan las blancas");
+				return true;
+		} else {
+				System.out.println("La partida ha terminado, ganan las negras");
+				return true;
+			}
+
 
 	}
 	
