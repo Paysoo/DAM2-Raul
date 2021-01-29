@@ -75,15 +75,15 @@ public abstract class Personatge {
     }
 
     public String toString() {
-
+        String equipacion = "| ";
         for (int i = 0; i < this.equip.length; i++) {
             if(!(this.equip[i] == null)) {
-                String equip = new StringBuilder().append(this.equip[i].getNom()).append(" ").toString();
+                equipacion += this.equip[i].getNom() + " | ";
             }
         }
 
-        return "Nom: " + this.nom + "\nEdat: " + this.edat + "\nForça: " + this.força + "\nVida: " + this.pVida + "\nEquip: " +
-                equip;
+        return "[Personatge]\nNom: " + this.nom + "\nEdat: " + this.edat + "\nForça: " + this.força + "\nVida: " + this.pVida + "\nEquip: " +
+                equipacion;
     }
 
 }
