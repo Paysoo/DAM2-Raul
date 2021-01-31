@@ -20,16 +20,16 @@ public class Tablero {
 		
 		fichas[0][0] = new Ficha('N', "negra");
 		fichas[0][2] = new Ficha('N', "negra");
-		fichas[0][4] = new Ficha('N', "negra");
-		fichas[0][6] = new Ficha('N', "negra");
-		fichas[1][1] = new Ficha('N', "negra");
-		fichas[1][3] = new Ficha('N', "negra");
-		fichas[1][5] = new Ficha('N', "negra");
-		fichas[1][7] = new Ficha('N', "negra");
-		fichas[2][0] = new Ficha('N', "negra");
-		fichas[2][2] = new Ficha('N', "negra");
-		fichas[2][4] = new Ficha('N', "negra");
-		fichas[2][6] = new Ficha('N', "negra");
+//		fichas[0][4] = new Ficha('N', "negra");
+//		fichas[0][6] = new Ficha('N', "negra");
+//		fichas[1][1] = new Ficha('N', "negra");
+//		fichas[1][3] = new Ficha('N', "negra");
+//		fichas[1][5] = new Ficha('N', "negra");
+//		fichas[1][7] = new Ficha('N', "negra");
+//		fichas[2][0] = new Ficha('N', "negra");
+//		fichas[2][2] = new Ficha('N', "negra");
+//		fichas[2][4] = new Ficha('N', "negra");
+//		fichas[2][6] = new Ficha('N', "negra");
 		
 		fichas[5][1] = new Ficha('B', "blanca");
 //		fichas[5][3] = new Ficha('B', "blanca");
@@ -46,8 +46,7 @@ public class Tablero {
 		
 	}
 	
-	
-	public Tablero(Ficha[][]  fichas) {
+	public Tablero(Ficha[][] fichas) {
 		this.fichas = fichas;	
 	}
 	
