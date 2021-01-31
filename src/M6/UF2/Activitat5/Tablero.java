@@ -32,17 +32,17 @@ public class Tablero {
 		fichas[2][6] = new Ficha('N', "negra");
 		
 		fichas[5][1] = new Ficha('B', "blanca");
-		fichas[5][3] = new Ficha('B', "blanca");
-		fichas[5][5] = new Ficha('B', "blanca");
-		fichas[5][7] = new Ficha('B', "blanca");
-		fichas[6][0] = new Ficha('B', "blanca");
-		fichas[6][2] = new Ficha('B', "blanca");
-		fichas[6][4] = new Ficha('B', "blanca");
-		fichas[6][6] = new Ficha('B', "blanca");
-		fichas[7][1] = new Ficha('B', "blanca");
-		fichas[7][3] = new Ficha('B', "blanca");
-		fichas[7][5] = new Ficha('B', "blanca");
-		fichas[7][7] = new Ficha('B', "blanca");
+//		fichas[5][3] = new Ficha('B', "blanca");
+//		fichas[5][5] = new Ficha('B', "blanca");
+//		fichas[5][7] = new Ficha('B', "blanca");
+//		fichas[6][0] = new Ficha('B', "blanca");
+//		fichas[6][2] = new Ficha('B', "blanca");
+//		fichas[6][4] = new Ficha('B', "blanca");
+//		fichas[6][6] = new Ficha('B', "blanca");
+//		fichas[7][1] = new Ficha('B', "blanca");
+//		fichas[7][3] = new Ficha('B', "blanca");
+//		fichas[7][5] = new Ficha('B', "blanca");
+//		fichas[7][7] = new Ficha('B', "blanca");
 		
 	}
 	
@@ -127,7 +127,7 @@ public class Tablero {
 
 	}
 	
-	public boolean partidaEnCurso() {
+	public boolean partidaEnCurso(PartidaEntity partida) {
 		boolean blancasVivas = false;
 		boolean negrasVivas = false;
 
@@ -151,14 +151,17 @@ public class Tablero {
 		}
 
 		if (blancasVivas && negrasVivas) {
-			return false;
+			return true;
 
 		} else if (blancasVivas && !negrasVivas){
 				System.out.println("La partida ha terminado, ganan las blancas");
-				return true;
+				partida.setGanador("B");
+
+				return false;
 		} else {
 				System.out.println("La partida ha terminado, ganan las negras");
-				return true;
+				partida.setGanador("N");
+				return false;
 			}
 
 

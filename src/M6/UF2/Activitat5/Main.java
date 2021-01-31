@@ -62,9 +62,11 @@ public class Main {
                 session.save(movimiento);
                 session.getTransaction().commit();
 
-            } while(tablero.partidaEnCurso());
+            } while(tablero.partidaEnCurso(partida));
 
-            // poner ganador de partida y guardarla
+            session.beginTransaction();
+            session.update(partida);
+            session.getTransaction().commit();
 
         } finally{
             session.close();
