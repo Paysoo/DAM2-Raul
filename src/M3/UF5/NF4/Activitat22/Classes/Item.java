@@ -1,6 +1,14 @@
 package M3.UF5.NF4.Activitat22.Classes;
 
 public class Item {
+
+    protected String nom;
+    protected double pes;
+    protected int valor;
+
+    public Item(String nom, double pes, int valor) {
+    }
+
     public String getNom() {
         return nom;
     }
@@ -25,7 +33,4 @@ public class Item {
         this.valor = valor;
     }
 
-    private String nom;
-    private double pes;
-    private int valor;
 }

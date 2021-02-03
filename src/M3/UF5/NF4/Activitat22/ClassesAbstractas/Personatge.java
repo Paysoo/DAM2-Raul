@@ -3,35 +3,48 @@ package M3.UF5.NF4.Activitat22.ClassesAbstractas;
 import M3.UF5.NF4.Activitat22.Classes.Item;
 
 public abstract class Personatge {
-    private String nom;
-    private int edat;
-    private int força;
-    private int pVida;
-    private Item[] equip = new Item[10];
+    protected String nom;
+    protected int edat;
+    protected int força;
+    protected int pVida;
+    protected Item[] equip = new Item[10];
 
-    public int atacar(Personatge personatge){
-        int pA = 0;
+    public boolean equipar(Personatge personatge, Item item){
+        boolean potEquipar = false;
+        boolean salir = false;
+        int contador = 9;
 
-        return pA;
-    }
+        do {
+            if (personatge.equip[contador] == null) {
+                personatge.equip[contador] = item;
+                potEquipar = true;
+                salir = true;
+            } else {
+                if (contador >= 0) {
+                    contador--;
+                } else {
+                    salir = true;
+                }
+            }
+        } while (!salir);
 
-    public boolean equipar(Item item){
-        boolean espai = false;
-
-        return espai;
+        return potEquipar;
     }
 
     public void beure(Item[] equip){
     }
 
-    public void mostrarEquip(){
+    public abstract void atacar(Personatge personatge);
 
+    public String mostrarEquip(){
+
+        String equipacion = "| ";
         for (int i = 0; i < this.equip.length; i++) {
             if(!(this.equip[i] == null)) {
-                String equipament = new StringBuilder().append(this.equip[i].getNom()).append(" ").toString();
+                equipacion += this.equip[i].getNom() + " | ";
             }
         }
-
+        return equipacion;
     }
 
     public String getNom() {
@@ -75,15 +88,10 @@ public abstract class Personatge {
     }
 
     public String toString() {
-        String equipacion = "| ";
-        for (int i = 0; i < this.equip.length; i++) {
-            if(!(this.equip[i] == null)) {
-                equipacion += this.equip[i].getNom() + " | ";
-            }
-        }
 
-        return "[Personatge]\nNom: " + this.nom + "\nEdat: " + this.edat + "\nForça: " + this.força + "\nVida: " + this.pVida + "\nEquip: " +
-                equipacion;
+        return "[Personatge]\nNom: " + this.nom + "\nEdat: " + this.edat +
+                "\nForça: " + this.força + "\nVida: " + this.pVida + "\nEquip: " +
+                mostrarEquip();
     }
 
 }

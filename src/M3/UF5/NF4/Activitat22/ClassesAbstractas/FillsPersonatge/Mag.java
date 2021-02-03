@@ -7,12 +7,11 @@ public class Mag extends Personatge {
     private int pMagia;
     private int coneixement;
 
-    public Mag(String nom, int edat, int força, int pVida, Item[] equip, int pMagia, int coneixement) {
+    public Mag(String nom, int edat, int força, int pVida, int pMagia, int coneixement) {
         this.setNom(nom);
         this.setEdat(edat);
         this.setForça(força);
         this.setpVida(pVida);
-        this.setEquip(equip);
         this.pMagia = pMagia;
         this.coneixement = coneixement;
     }
@@ -35,5 +34,10 @@ public class Mag extends Personatge {
         String str = new StringBuilder().append(super.toString()).append("\nMagia: " + this.pMagia +
                 "\nConeixement: " + this.coneixement).toString();
         return str;
+    }
+
+    public void atacar(Personatge personatge){
+        int pA = 0;
+
     }
 }
