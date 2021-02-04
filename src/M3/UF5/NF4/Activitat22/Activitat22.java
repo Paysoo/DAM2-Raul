@@ -6,23 +6,13 @@ import M3.UF5.NF4.Activitat22.Classes.Item;
 import M3.UF5.NF4.Activitat22.ClassesAbstractas.FillsPersonatge.Guerrer;
 import M3.UF5.NF4.Activitat22.ClassesAbstractas.FillsPersonatge.Mag;
 
+import java.util.Arrays;
+
 public class Activitat22 {
     public static void main(String[] args) {
 
-        Item[] equip = new Item[10];
-
-        String nom = "item";
-        double pes = 0.1;
-        int valor = 10;
-
-//        for (int i = 0; i < equip.length; i++) {
-//
-//            item = new Item("nom" + i, pes+i,valor+i);
-//            equip[i] = item;
-//        }
-
         Item item = new Item("Cofre", 3.1, 5000);
-        Item item1 = new Item("Anell de rubi", 0.02,2300);
+        Item item1 = new Item("Anell de rubi", 0.02, 2300);
 
         Arma arma = new Arma("Espasa llarga", 3.1, 5000, 6, "Cos a cos");
         Arma arma1 = new Arma("Vareta magica", 0.125, 3200, 3, "Magica");
@@ -37,12 +27,33 @@ public class Activitat22 {
         Guerrer guerrer = new Guerrer("Argelaga", 35, 12, 20, 120);
         Guerrer guerrer1 = new Guerrer("Matoll", 42, 15, 22, 112);
 
-        if (mag.equipar(mag, item1)) {
-            System.out.println("Item equipado correctamente");
-        } else {
-            System.out.println("No se ha podido equipar el item");
-        }
+        mag.equipar(pocio);
+        mag.equipar(arma2);
 
-        System.out.println(mag.toString());
+        guerrer.equipar(pocio1);
+        guerrer.equipar(arma);
+
+        System.out.println(mag);
+
+        guerrer.atacar(mag);
+        mag.beure();
+        System.out.println(mag);
+
+        System.out.println(guerrer);
+        mag.atacar(guerrer);
+        guerrer.beure();
+
+        System.out.println(guerrer);
+
+        mag.equipar(item1);
+        mag.equipar(item);
+
+        System.out.println("Equipo sin ordenar:");
+        System.out.println(mag.mostrarEquip());
+
+        System.out.println("Equipo ordenado:");
+        mag.ordenarEquip();
+        System.out.println(mag.mostrarEquip());
+
     }
 }
