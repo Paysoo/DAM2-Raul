@@ -278,7 +278,6 @@ public class alumnosjdbc {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     public static void inserirPoblacio(Connection con) {
