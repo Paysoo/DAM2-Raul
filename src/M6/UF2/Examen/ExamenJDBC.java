@@ -171,40 +171,38 @@ public class ExamenJDBC {
                     stmt.setString(1, nom);
                     rs = stmt.executeQuery();
 
-                    while (rs.next()) {
+                    if (rs.next()) {
                         System.out.println(rs.getString(3));
                     }
 
                     System.out.print("Respuesta: ");
                     String resposta = teclado.nextLine();
+                    String resposta2 = rs.getString(4);
 
-                    try {
+                    if (resposta.equals(resposta2)) {
+                        try {
 
-                        PreparedStatement comprobarResposta;
-                        comprobarResposta = con.prepareStatement("SELECT resposta FROM usuaris WHERE resposta = ?");
-                        comprobarResposta.setString(1, resposta);
-                        rs = comprobarResposta.executeQuery();
+                            if (rs.next()) { // Si encuentra la respuesta en la bases de datos entonces le deja cambiar la contraseña
+                                // Si no la encuentra le deberia salir el mensaje de error "ERROR: Reset incorrecte"
+                                System.out.println("Introduce la nueva contraseña");
+                                String novaContrasenya = teclado.next();
+                                teclado.nextLine();
 
-                        if (rs.isBeforeFirst()) { // Si encuentra la respuesta en la bases de datos entonces le deja cambiar la contraseña
-                                                    // Si no la encuentra le deberia salir el mensaje de error "ERROR: Reset incorrecte"
-                            System.out.println("Introduce la nueva contraseña");
-                            String novaContrasenya = teclado.next();
-                            teclado.nextLine();
+                                PreparedStatement canviarContrasenya;
+                                canviarContrasenya = con.prepareStatement("UPDATE usuaris SET contrasenya=? WHERE usuari = ?");
+                                canviarContrasenya.setString(1, novaContrasenya);
+                                canviarContrasenya.setString(2, nom);
 
-                            PreparedStatement canviarContrasenya;
-                            canviarContrasenya = con.prepareStatement("UPDATE usuaris SET contrasenya=? WHERE usuari = ?");
-                            canviarContrasenya.setString(1, novaContrasenya);
-                            canviarContrasenya.setString(2, nom);
+                                canviarContrasenya.executeUpdate();
+                                System.out.println("Contrasenya canviada");
 
-                            canviarContrasenya.executeUpdate();
-                            System.out.println("Contrasenya canviada");
+                            } else {
+                                System.out.println("ERROR: Reset incorrecte");
+                            }
 
-                        } else {
-                            System.out.println("ERROR: Reset incorrecte");
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
                         }
-
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
                     }
 
                 } catch (SQLException e) {
