@@ -29,7 +29,5 @@ public class BorderLayoutsTest extends JFrame {
         JButton btnCenter = new JButton("CENTER");
         add(btnCenter, BorderLayout.CENTER);
 
-
-
     }
 }
