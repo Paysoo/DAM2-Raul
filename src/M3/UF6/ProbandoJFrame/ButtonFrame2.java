@@ -10,7 +10,7 @@ public class ButtonFrame2 extends JFrame implements ActionListener {
     JButton bChange2;
 
     public static void main(String[] args) {
-        ButtonFrame2 bf = new ButtonFrame2();
+        M3.UF6.ProbandoJFrame.ButtonFrame2 bf = new M3.UF6.ProbandoJFrame.ButtonFrame2();
 
         bf.setSize(200,100);
         bf.setVisible(true);
