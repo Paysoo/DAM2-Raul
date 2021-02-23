@@ -166,15 +166,7 @@ class Nau extends Thread {
 
     public synchronized void moure() {
 
-        if (this.numero == -1) {
-            x = x + dsx;
-            // si arriva als marges ...
-            if (x >= 1180 - tx || x <= tx) {
 
-            }
-                x = 0;
-
-        } else {
             x = x + dsx;
             y = y + dsy;
             // si arriva als marges ...
@@ -182,7 +174,7 @@ class Nau extends Thread {
                 dsx = -dsx;
             if (y >= 600 - ty || y <= ty)
                 dsy = -dsy;
-        }
+
 
     }
 
