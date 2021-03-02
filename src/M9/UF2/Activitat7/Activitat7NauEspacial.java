@@ -40,7 +40,7 @@ public class Activitat7NauEspacial extends javax.swing.JFrame {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setTitle("Naus Espaials");
         f.setContentPane(new PanelNau());
-        f.setSize(480, 560);
+        f.setSize(1200, 800);
         f.setVisible(true);
     }
 }
@@ -49,7 +49,7 @@ public class Activitat7NauEspacial extends javax.swing.JFrame {
 class PanelNau extends JPanel implements Runnable, KeyListener {
     private int numNaus = 3;
     Nau[] nau;
-    Proyectil[] proyectiles = new Proyectil[3];
+    Proyectil[] proyectiles = new Proyectil[6];
     Nau nauPropia;
 
     public PanelNau() {
@@ -66,7 +66,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
         }
 
         // Creo la nau propia
-        nauPropia = new Nau("NauNostra", 200, 400, 10, 0, 100, "revolver");
+        nauPropia = new Nau("NauNostra", 200, (800 - 350), 0, 0, 100, "revolver");
 
         // Creo fil per anar pintant cada 0,1 segons el joc per pantalla
         Thread n = new Thread(this);
@@ -93,8 +93,20 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < nau.length; ++i) nau[i].pinta(g);
+        for (int i = 0; i < nau.length; ++i) {
+            if (nau[i] != null) {
+                nau[i].pinta(g);
+            }
+        }
+        ;
         nauPropia.pinta(g);
+        for (int i = 0; i < proyectiles.length; i++) {
+            if (proyectiles[i] != null) {
+                proyectiles[i].pinta(g);
+                proyectiles[i].hit(nau);
+
+            }
+        }
     }
 
 
@@ -119,16 +131,24 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
             boolean disparoHecho = false;
             do {
                 if (proyectiles[disparosPosibles] == null) {
-                    nauPropia.dispara(disparosPosibles);
+                    nauPropia.dispara(disparosPosibles, proyectiles);
                     disparoHecho = true;
                 }
                 disparosPosibles++;
-            } while (!disparoHecho || disparosPosibles < 3);
+            } while (!disparoHecho && disparosPosibles < proyectiles.length);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == 37) {
+            nauPropia.para();
+        }
+
+        if (e.getKeyCode() == 39) {
+            nauPropia.para();
+        }
+
     }
 }
 
@@ -142,6 +162,14 @@ class Nau extends Thread {
 
     private String img = "/images/nau.jpg";
     private Image image;
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     public Nau(String nomNau, int x, int y, int dsx, int dsy, int v, String imatge) {
         this.nomNau = nomNau;
@@ -163,8 +191,8 @@ class Nau extends Thread {
         x = x + dsx;
         y = y + dsy;
         // si arriva als marges ...
-        if (x >= 450 - tx || x <= tx) dsx = -dsx;
-        if (y >= 500 - ty || y <= ty) dsy = -dsy;
+        if (x >= 1200 - 160 - tx || x <= tx) dsx = -dsx;
+        if (y >= 800 - 104 - ty || y <= ty) dsy = -dsy;
     }
 
     public void pinta(Graphics g) {
@@ -185,17 +213,20 @@ class Nau extends Thread {
     }
 
     public void esquerra() {
-        this.dsx = -10;
+        this.dsx = -40;
     }
 
     public void dreta() {
-        this.dsx = 10;
+        this.dsx = 40;
     }
 
-    public void dispara(int posicionEnArray) {
-        Proyectil[] proyectiles = new Proyectil[3];
+    public void dispara(int posicionEnArray, Proyectil[] proyectiles) {
 
-        proyectiles[posicionEnArray] = new Proyectil(this.nomNau,this.x, this.y, 0, 20, 100, "bala");
+        proyectiles[posicionEnArray] = new Proyectil(this.nomNau, this.x + 15, 311, 0, -30, 100, "bala");
+    }
+
+    public void para() {
+        this.dsx = 0;
     }
 }
 
@@ -229,8 +260,8 @@ class Proyectil extends Thread {
         x = x + dsx;
         y = y + dsy;
         // si arriva als marges ...
-        if (x >= 450 - tx || x <= tx) dsx = -dsx;
-        if (y >= 500 - ty || y <= ty) dsy = -dsy;
+        if (x >= 1200 - 160 - tx || x <= tx) dsx = -dsx;
+        if (y >= 800 - 104 - ty || y <= ty) dsy = -dsy;
     }
 
     public void pinta(Graphics g) {
@@ -256,5 +287,15 @@ class Proyectil extends Thread {
 
     public void dreta() {
         this.dsx = 10;
+    }
+
+    public void hit(Nau[] naus) {
+        for (int i = 0; i < naus.length; i++) {
+            if (naus[i] != null) {
+                if (this.x - naus[i].getX() < -50 && this.y - naus[i].getY() < -50) {
+                    naus[i] = null;
+                }
+            }
+        }
     }
 }
