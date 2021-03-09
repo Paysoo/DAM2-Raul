@@ -101,10 +101,12 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
         ;
         nauPropia.pinta(g);
         for (int i = 0; i < proyectiles.length; i++) {
-            if (proyectiles[i] != null) {
+            if (proyectiles[i] != null && proyectiles[i].getY() <= 800-104) {
                 proyectiles[i].pinta(g);
                 proyectiles[i].hit(nau);
 
+            } else {
+                proyectiles[i] = null;
             }
         }
     }
@@ -183,10 +185,6 @@ class Nau extends Thread {
         t.start();
     }
 
-    public int velocitat() {
-        return v;
-    }
-
     public void moure() {
         x = x + dsx;
         y = y + dsy;
@@ -232,6 +230,11 @@ class Nau extends Thread {
 
 class Proyectil extends Thread {
     private String nomProyectil;
+
+    public int getY() {
+        return y;
+    }
+
     private int x, y;
     private int dsx, dsy, v;
     private int tx = 10;
@@ -252,16 +255,11 @@ class Proyectil extends Thread {
         t.start();
     }
 
-    public int velocitat() {
-        return v;
-    }
 
     public void moure() {
         x = x + dsx;
         y = y + dsy;
-        // si arriva als marges ...
-        if (x >= 1200 - 160 - tx || x <= tx) dsx = -dsx;
-        if (y >= 800 - 104 - ty || y <= ty) dsy = -dsy;
+
     }
 
     public void pinta(Graphics g) {
@@ -281,18 +279,10 @@ class Proyectil extends Thread {
         }
     }
 
-    public void esquerra() {
-        this.dsx = -10;
-    }
-
-    public void dreta() {
-        this.dsx = 10;
-    }
-
     public void hit(Nau[] naus) {
         for (int i = 0; i < naus.length; i++) {
             if (naus[i] != null) {
-                if (this.x - naus[i].getX() < -50 && this.y - naus[i].getY() < -50) {
+                if (this.x - naus[i].getX() >= 30 && this.y - naus[i].getY() >= 30) {
                     naus[i] = null;
                 }
             }
