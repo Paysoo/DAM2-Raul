@@ -101,13 +101,22 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
         ;
         nauPropia.pinta(g);
         for (int i = 0; i < proyectiles.length; i++) {
-            if (proyectiles[i] != null && proyectiles[i].getY() <= 800-104) {
+            if (proyectiles[i] != null) {
                 proyectiles[i].pinta(g);
-                proyectiles[i].hit(nau);
+                if (proyectiles[i].hit(nau)) {
+                    proyectiles[i].finalitza();
+                    proyectiles[i] = null;
+                }
 
-            } else if (proyectiles[i] != null && proyectiles[i].getY() > 800){
+            }
+            if (proyectiles[i] != null && proyectiles[i].getY() < 0 - 104){
                 proyectiles[i] = null;
                 System.out.println("proyectil " + i + " eliminado");
+            }
+            if (nauPropia.muere(nau)) {
+                nauPropia.finalitza();
+                nauPropia = null;
+                System.exit(1);
             }
         }
     }
@@ -162,6 +171,7 @@ class Nau extends Thread {
     private int dsx, dsy, v;
     private int tx = 10;
     private int ty = 10;
+    private boolean fi = false;
 
     private String img = "/images/nau.jpg";
     private Image image;
@@ -199,9 +209,22 @@ class Nau extends Thread {
         g2d.drawImage(this.image, x, y, null);
     }
 
+    public boolean muere(Nau[] naus) {
+        boolean muerto = false;
+        for (int i = 0; i < naus.length; i++) {
+            if (naus[i] != null) {
+                if ((((this.x + 80) - (naus[i].getX() + 80) <= 40) && ((this.y + 156) - (naus[i].getY() + 52) <= 77))
+                        || ((this.x - 80) - (naus[i].getX() - 80) <= 30) && ((this.y - 156) - (naus[i].getY() - 52) <= 41)) {
+                    naus[i] = null;
+                    muerto = true;
+                }
+            }
+        }
+        return muerto;
+    }
 
     public void run() {
-        while (true) {
+        while (!fi) {
             //System.out.println("Movent nau numero " + this.nomNau);
             try {
                 Thread.sleep(this.v);
@@ -227,6 +250,10 @@ class Nau extends Thread {
     public void para() {
         this.dsx = 0;
     }
+
+    public void finalitza() {
+        this.fi = true;
+    }
 }
 
 class Proyectil extends Thread {
@@ -240,6 +267,7 @@ class Proyectil extends Thread {
     private int dsx, dsy, v;
     private int tx = 10;
     private int ty = 10;
+    private boolean fi = false;
 
     private String img = "/images/nau.jpg";
     private Image image;
@@ -270,7 +298,7 @@ class Proyectil extends Thread {
 
 
     public void run() {
-        while (true) {
+        while (!fi) {
             //System.out.println("Movent nau numero " + this.nomNau);
             try {
                 Thread.sleep(this.v);
@@ -280,13 +308,21 @@ class Proyectil extends Thread {
         }
     }
 
-    public void hit(Nau[] naus) {
+    public boolean hit(Nau[] naus) {
+        boolean hitt = false;
         for (int i = 0; i < naus.length; i++) {
             if (naus[i] != null) {
-                if (this.x - naus[i].getX() >= 30 && this.y - naus[i].getY() >= 30) {
+                if ((((this.x + 15) - (naus[i].getX() + 80) <= 30) && ((this.y + 41) - (naus[i].getY() + 52) <= 41))
+                        || ((this.x - 15) - (naus[i].getX() - 80) <= 30) && ((this.y - 41) - (naus[i].getY() - 52) <= 41)) {
                     naus[i] = null;
+                    hitt = true;
                 }
             }
         }
+        return hitt;
+    }
+
+    public void finalitza() {
+        this.fi = true;
     }
 }
