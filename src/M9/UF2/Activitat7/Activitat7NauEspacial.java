@@ -105,8 +105,9 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
                 proyectiles[i].pinta(g);
                 proyectiles[i].hit(nau);
 
-            } else {
+            } else if (proyectiles[i] != null && proyectiles[i].getY() > 800){
                 proyectiles[i] = null;
+                System.out.println("proyectil " + i + " eliminado");
             }
         }
     }
@@ -129,15 +130,15 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
         } //System.out.println("a la dreta"); }
 
         if (e.getKeyCode() == 32) {
-            int disparosPosibles = 0;
+            int posicionArrayProyectiles = 0;
             boolean disparoHecho = false;
             do {
-                if (proyectiles[disparosPosibles] == null) {
-                    nauPropia.dispara(disparosPosibles, proyectiles);
+                if (proyectiles[posicionArrayProyectiles] == null) {
+                    nauPropia.dispara(posicionArrayProyectiles, proyectiles);
                     disparoHecho = true;
                 }
-                disparosPosibles++;
-            } while (!disparoHecho && disparosPosibles < proyectiles.length);
+                posicionArrayProyectiles++;
+            } while (!disparoHecho && posicionArrayProyectiles < proyectiles.length);
         }
     }
 
