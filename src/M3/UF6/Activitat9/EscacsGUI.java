@@ -23,18 +23,18 @@ public class EscacsGUI extends javax.swing.JFrame {
     int colDestino;
     boolean seleccion = true;
     String jugador = "blanco";
-
+    
     public String getJugador() {
         return jugador;
     }
-
+    
     public EscacsGUI() {
         Ficha ficha;
         tablero = new Tablero();
-
+        
         initComponents();
         rellenarTablero(tablero.getFichas());
-
+        
         // do {
         //   System.out.println("Turno jugador: " + jugador);
         //} while (tablero.partidaEnCurso());
@@ -50,6 +50,8 @@ public class EscacsGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         table = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,29 +81,49 @@ public class EscacsGUI extends javax.swing.JFrame {
         table.setPreferredSize(new java.awt.Dimension(600, 600));
         table.setRowHeight(60);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tableMouseReleased(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableMouseClicked(evt);
             }
         });
+
+        jButton1.setText("REINICIAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("TURNO | BLANCAS (MAYÚSCULAS)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 34, Short.MAX_VALUE)
-                .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(203, 203, 203)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 5, Short.MAX_VALUE)
-                .addComponent(table, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(table, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(181, 181, 181)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -112,7 +134,7 @@ public class EscacsGUI extends javax.swing.JFrame {
         int fil = table.getSelectedRow();
         int col = table.getSelectedColumn();
         Ficha[][] tableroActual = tablero.getFichas();
-
+        
         if (table.getValueAt(fil, col) != null && seleccion) {
             filFicha = fil;
             colFicha = col;
@@ -122,34 +144,49 @@ public class EscacsGUI extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "ESA FICHA NO ES TUYA");
             }
-
+            
         } else if (filFicha > -1 && colFicha > -1 && !seleccion) {
             filDestino = fil;
             colDestino = col;
             seleccion = true;
             if (tablero.moverFicha(filFicha, colFicha, filDestino, colDestino, jugador)) {
-
+                
                 tableroActual = tablero.getFichas();
                 char pieza = tableroActual[filDestino][colDestino].getTipo();
                 table.setValueAt(pieza, filDestino, colDestino);
                 table.setValueAt(null, filFicha, colFicha);
                 cambiarTurno();
-
+                tablero.mostrar();
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "SELECCIONA UNA FICHA");
         }
-        tablero.mostrar();
+        
         if (!tablero.partidaEnCurso()) {
-            System.exit(1);
+            int opcion = JOptionPane.showConfirmDialog(this,"Quieres jugar otra partida?","Partida Acabada",JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION){
+                reiniciarPartida();
+            } else {
+                System.exit(1);
+            }
+        
         }
     }//GEN-LAST:event_tableMouseClicked
 
-    private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tableMouseReleased
+        reiniciarPartida();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void reiniciarPartida(){
+        tablero = new Tablero();
+        rellenarTablero(tablero.getFichas());
+        jugador = "blanco";
+        tablero.mostrar();
+        jLabel1.setText("TURNO | BLANCAS (MAYÚSCULAS)");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -184,35 +221,40 @@ public class EscacsGUI extends javax.swing.JFrame {
             }
         });
     }
-
+    
     public void rellenarTablero(Ficha[][] tablero) {
-
+        
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[i].length; j++) {
                 if (tablero[i][j] != null) {
                     char pieza = tablero[i][j].getTipo();
                     table.setValueAt(pieza, i, j);
-
+                    
+                } else {
+                    table.setValueAt(null, i, j);
                 }
-
+                
             }
-
+            
         }
-
+        
     }
 
     // METODO CAMBIAR DE TURNO
     public void cambiarTurno() {
         if (jugador.equals("blanco")) {
             jugador = "negro";
-
+            jLabel1.setText("TURNO | NEGRAS (MINÚSCULAS)");
+            
         } else {
             jugador = "blanco";
-
+            jLabel1.setText("TURNO | BLANCAS (MAYÚSCULAS)");
         }
-
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
