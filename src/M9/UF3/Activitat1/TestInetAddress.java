@@ -4,7 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 // PARA EJECUTAR POR COMANDOS:
-// C:\Users\hardl\Documents\Clase\JAVA\Clase\out\production\Clase>java M9.UF3.Activitat1.TestInetAddress localhost
+// C:\Disco Duro 2TB\IntelliJ IDEA Project\out\production\IntelliJ IDEA Project>java M9.UF3.Activitat1.TestInetAddress localhost
 public class TestInetAddress {
 
     public static void main(String[] args) {
