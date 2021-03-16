@@ -1,33 +1,33 @@
 package M9.UF3.Activitat1;
-import java.net.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+// PARA EJECUTAR POR COMANDOS:
+// C:\Users\hardl\Documents\Clase\JAVA\Clase\out\production\Clase>java M9.UF3.Activitat1.TestInetAddress localhost
 public class TestInetAddress {
 
-    public static void main (String[] args) {
-        InetAddress dir = null;
+    public static void main(String[] args) {
+
+        InetAddress dir;
         System.out.println("=====================================================");
-        System.out.println("SORTIDA PER A LOCALHOST");
+        System.out.println("SALIDA");
 
         try {
-            //LOCALHOST
-            dir = InetAddress.getByName("localhost");
+        // LE PASO EL PRIMER ARGUMENTO DEL ARRAY
+            dir = InetAddress.getByName(args[0]);
             provaTots(dir);
 
-            //URL www.google.com
-            System.out.println("=====================================================");
-            System.out.println("SORTIDA PER A URL");
-            dir = InetAddress.getByName("www.google.com");
-            provaTots(dir);
-
-            //Array tipus InetAddress amb totes les adreces IP de google.com
-            System.out.println("\tAdreces IP per a: "+dir.getHostName());
+            // Array tipus InetAddress amb totes les adreces IP de google.com
+            System.out.println("\n\tAdreces IP per a: " + dir.getHostName());
             InetAddress[] adreces = InetAddress.getAllByName(dir.getHostName());
-            for (int i=0; i<adreces.length; i++)
-                System.out.println("\t\t"+adreces[i].toString());
+            for (int i = 0; i < adreces.length; i++)
+                System.out.println("\t\t" + adreces[i].toString());
             System.out.println("=====================================================");
 
-        } catch (UnknownHostException e1) {e1.printStackTrace();}
-
+        } catch (UnknownHostException e1) {
+            e1.printStackTrace();
+        }
     }
 
     private static void provaTots(InetAddress dir) {
