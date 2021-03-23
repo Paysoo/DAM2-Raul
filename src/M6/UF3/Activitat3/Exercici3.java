@@ -45,7 +45,7 @@ public class Exercici3 {
         while (!salir) {
             mostrardeps(servei);
             System.out.println("Introduce una opcion entre 1 y 4]" +
-                    "\n1-Introducir departamento" +
+                    "\n1-Añadir departamento" +
                     "\n2-Borrar departamento" +
                     "\n3-Modificar departamento" +
                     "\n4-Salir");
