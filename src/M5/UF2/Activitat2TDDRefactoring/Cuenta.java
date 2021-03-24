@@ -1,38 +1,38 @@
-package M5.UF2.ActivitatTDDRefactoring;
+package M5.UF2.Activitat2TDDRefactoring;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Cuenta {
 
-    private int saldo;
-    static final int INGRESO_MAXIMO = 6000;
-    static final int RETIRADA_MAXIMA = 6000;
-    static final int TRANSFERENCIA_MAXIMA = 3000;
-    private double tranferenciaHecha;
-    private String ultimaTransferencia = "0000";
+    private int amount;
+    static final int INGRESO_MAXIMO = 600000;
+    static final int RETIRADA_MAXIMA = 600000;
+    static final int TRANSFERENCIA_MAXIMA = 300000;
+    private int tranferenciaHecha;
+    private String ultimaTransferencia = "000000";
 
     public Cuenta() {
     }
 
-    public double saldo() {
+    public int saldo() {
 
-        return this.saldo;
+        return this.amount;
     }
 
-    public void ingresar(double ingreso) {
-        if (ingreso > 0 && tieneDosDecimales_o_Menos(ingreso) && ingreso <= INGRESO_MAXIMO) {
-            this.saldo += ingreso;
+    public void ingresar(int ingreso) {
+        if (ingreso > 0 && ingreso <= INGRESO_MAXIMO) {
+            this.amount += ingreso;
         }
     }
 
-    public void retirar(double retiro) {
-        if (this.saldo >= retiro && retiro > 0 && tieneDosDecimales_o_Menos(retiro) && retiro <= RETIRADA_MAXIMA) {
-            this.saldo -= retiro;
+    public void retirar(int retiro) {
+        if (this.amount >= retiro && retiro > 0 && retiro <= RETIRADA_MAXIMA) {
+            this.amount -= retiro;
         }
     }
 
-    public void transferir(double transferencia, Cuenta receptor) {
+    public void transferir(int transferencia, Cuenta receptor) {
 
         if (transferencia > 0 && transferencia <= TRANSFERENCIA_MAXIMA) {
             if (this.ultimaTransferencia.equals(fecha())) {
@@ -53,11 +53,6 @@ public class Cuenta {
         }
     }
 
-    private boolean tieneDosDecimales_o_Menos(double ingreso){
-
-        return ingreso == Math.floor(ingreso * 100) / 100;
-
-    }
 
     private String fecha(){
         String data = "";

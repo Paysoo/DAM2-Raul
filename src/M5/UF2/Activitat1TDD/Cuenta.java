@@ -1,7 +1,6 @@
-package M5.UF2.ActivitatTDD;
+package M5.UF2.Activitat1TDD;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Cuenta {

@@ -1,4 +1,4 @@
-package M5.UF2.ActivitatTDD;
+package M5.UF2.Activitat1TDD;
 
 import org.junit.jupiter.api.Test;
 
