@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 public class Cuenta {
 
-    private double saldo;
+    private int saldo;
     static final int INGRESO_MAXIMO = 6000;
     static final int RETIRADA_MAXIMA = 6000;
     static final int TRANSFERENCIA_MAXIMA = 3000;
