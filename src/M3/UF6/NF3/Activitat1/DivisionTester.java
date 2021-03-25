@@ -14,7 +14,7 @@ public class DivisionTester {
             System.out.println("Introduce el numerador");
             numerator = teclado.next();
 
-            if (numerator.substring(0,1).equalsIgnoreCase("q")) {
+            if (numerator.charAt(0) == 'q' || numerator.charAt(0) == 'Q') {
                 sortir = true;
             } else {
                 System.out.println("Introduce el divisor");
