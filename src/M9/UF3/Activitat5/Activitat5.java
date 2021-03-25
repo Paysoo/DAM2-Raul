@@ -36,7 +36,6 @@ public class Activitat5 {
             //Lectura del teclat
             cadena = in.readLine();
 
-
         }
 
         fsortida.close();
