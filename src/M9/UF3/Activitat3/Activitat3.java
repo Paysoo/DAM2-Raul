@@ -9,6 +9,8 @@ import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.Map;
 
+// C:\Disco Duro 2TB\IntelliJ IDEA Project\out\production\IntelliJ IDEA Project>java M9.UF3.Activitat3.Activitat3 https://www.amazon.es/ 5 script
+
 public class Activitat3 {
     @SuppressWarnings("rawtypes")
     public static void main (String[] args) {

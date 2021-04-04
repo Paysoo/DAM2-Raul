@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Activitat5 {
+public class ClientTCP2 {
     public static void main (String[] args) throws Exception {
 
         String host = "localhost";
@@ -26,6 +26,8 @@ public class Activitat5 {
         //Lectura teclat
         cadena = in.readLine();
 
+        // HASTA QUE NO HACES UN "ENTER" SIN HABER PUESTO NADA EN LA CADENA, EL CLIENTE NO SE CIERRA Y
+        // PETA AL CREAR UNO NUEVO
         while (cadena != null) {
 
             //Enviament cadena al servidor
