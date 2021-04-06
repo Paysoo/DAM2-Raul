@@ -4,39 +4,79 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 import javax.net.ssl.HttpsURLConnection;
 
 public class HttpURLConnectionExample {
+    static Scanner teclado = new Scanner(System.in);
 
-    private final String USER_AGENT = "Mozilla/5.0";
+//    private final String USER_AGENT = "Mozilla/5.0";
 
     public static void main(String[] args) throws Exception {
 
         HttpURLConnectionExample http = new HttpURLConnectionExample();
 
-        System.out.println("Testing 1 - Send Http GET request");
-        http.sendGet();
+        System.out.println("Elige una opción");
+        System.out.println("[1 - GET]\n[2 - POST]");
+        int opcion = teclado.nextInt();
 
-        System.out.println("\nTesting 2 - Send Http POST request");
-        http.sendPost();
+        // PIDO LA URL DE LA PAGINA
+        System.out.print("URL: ");
+        String url = teclado.next();
+        URL obj = new URL(url);
+
+        // HAGO LA CONEXION
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+
+
+        switch (opcion) {
+            case 1:
+                System.out.println("Testing 1 - Send Http GET request");
+
+                // PIDO UN HEADER (En este caso user-agent) [En la pagina - F12 - Network - Primer elemnto de Name - Headers]
+                System.out.println("USER-AGENT :");
+                String userAgent = teclado.next();
+
+                // Llamo a la funcion y le paso la URL, la conexion y el header que quiero (user-agent)
+                http.sendGet(url, con, userAgent);
+                break;
+
+            case 2:
+                System.out.println("\nTesting 2 - Send Http POST request");
+
+                // PIDO UN HEADER (En este caso user-agent) [En la pagina - F12 - Network - Primer elemnto de Name - Headers]
+                System.out.println("ACCEPT-ENCODING :");
+                String acceptEncoding = teclado.nextLine();
+                teclado.next();
+
+                // Llamo a la funcion y le paso la URL, la conexion y el header que quiero (accept-encoding)
+                http.sendPost(url, con, acceptEncoding);
+                break;
+
+            default:
+                System.out.println("OPCIÓN ERRONEA");
+                break;
+        }
 
     }
 
     // HTTP GET request
-    private void sendGet() throws Exception {
+    private void sendGet(String url, HttpURLConnection con, String userAgent) throws Exception {
 
-        String url = "http://www.insbaixcamp.org/";
-
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//        String url = "http://www.insbaixcamp.org/";
+//
+//        URL obj = new URL(url);
+//        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         // optional default is GET
         con.setRequestMethod("GET");
 
         //add request header
-        con.setRequestProperty("User-Agent", USER_AGENT);
+        con.setRequestProperty("User-Agent", userAgent);
 
         int responseCode = con.getResponseCode();
+
         System.out.println("\nSending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
 
@@ -56,15 +96,15 @@ public class HttpURLConnectionExample {
     }
 
     // HTTP POST request
-    private void sendPost() throws Exception {
+    private void sendPost(String url, HttpURLConnection con, String acceptEncoding) throws Exception {
 
-        String url = "http://www.insbaixcamp.cat/moodle/";
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//        String url = "http://www.insbaixcamp.cat/moodle/";
+//        URL obj = new URL(url);
+//        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         //add reuqest header
         con.setRequestMethod("POST");
-        con.setRequestProperty("User-Agent", USER_AGENT);
+        con.setRequestProperty("Accept-Encoding", acceptEncoding);
         con.setRequestProperty("Accept-Language", "ca-es");
 
         //Query string
