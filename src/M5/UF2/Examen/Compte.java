@@ -13,7 +13,7 @@ public class Compte {
     /**
      * METODO PARA DEPOSITAR DINERO
      * @param pasta
-     * @return
+     * @return SALDO
      */
     // Rebem els de diners
     public int diposita(int pasta) {
@@ -25,7 +25,7 @@ public class Compte {
      * METODO PARA RETIRAR DINERO
      * @param pasta
      * @param cs
-     * @return
+     * @return [IF - RETIRO] || [ELSE IF - RETIRO > SALDO] || [ELSE - CONTRASENYA INCORRECTA]
      */
     // Si la contrasenya és correcta i tenim prou diners, els restem del saldo i
     // retornem el valor de la pasta que hem retirat.
@@ -42,7 +42,7 @@ public class Compte {
 
     /**
      * GETTER QUE DEVUELVE EL SALDO DE LA CUENTA
-     * @return
+     * @return SALDO
      */
     // Retornem el saldo
     public int getSaldo() {
@@ -51,7 +51,7 @@ public class Compte {
 
     /**
      * GETTER QUE DEVUELVE LA CONTRASENYA
-     * @return
+     * @return CONTRASENYA
      */
     // Retornem la contrasenya
     public String getContrasenya() {
