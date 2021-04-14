@@ -12,7 +12,7 @@ public class Compte {
 
     /**
      * METODO PARA DEPOSITAR DINERO
-     * @param pasta
+     * @param pasta CANTIDAD DEL INGRESO
      * @return SALDO
      */
     // Rebem els de diners
@@ -23,9 +23,9 @@ public class Compte {
 
     /**
      * METODO PARA RETIRAR DINERO
-     * @param pasta
-     * @param cs
-     * @return [IF - RETIRO] || [ELSE IF - RETIRO > SALDO] || [ELSE - CONTRASENYA INCORRECTA]
+     * @param pasta CANTIDAD DEL RETIRO
+     * @param cs CONTRASENYA
+     * @return [IF - RETIRO] || [ELSE IF - RETIRO MAYOR A SALDO] || [ELSE - CONTRASENYA INCORRECTA]
      */
     // Si la contrasenya és correcta i tenim prou diners, els restem del saldo i
     // retornem el valor de la pasta que hem retirat.
