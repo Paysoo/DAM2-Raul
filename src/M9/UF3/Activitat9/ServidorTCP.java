@@ -6,45 +6,67 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-// C:\Disco Duro 2TB\IntelliJ IDEA Project\out\production\IntelliJ IDEA Project>java M9.UF3.Activitat5.ServidorTCP4 5 <-NºClients
+// C:\Disco Duro 2TB\IntelliJ IDEA Project\out\production\IntelliJ IDEA Project>java M9.UF3.Activitat9.ServidorTCP 3 <-NºClients
 
 public class ServidorTCP extends Thread {
 
-    public static void main(String[] args) throws Exception {
+    Socket cliente;
+    static int clientes = 0;
+    static boolean cerrarServidor = false;
 
+    public ServidorTCP(Socket clientConnectat) {
+        this.cliente = clientConnectat;
+    }
 
-        int numPort = 60000;
-        ServerSocket servidor = new ServerSocket(numPort);
-        String cadena = "";
-        int clientes = Integer.valueOf(args[0]);
+    @Override
+    public void run() {
+        String cadena;
 
-        for (int i = 0; i < clientes; i++) {
-            System.out.println("Esperant connexió del client [" + i + "]");
-            Socket clientConnectat = servidor.accept();
-            System.out.println("Client [" + i + "] connectat... ");
+        try {
+            clientes++;
+            System.out.println("Client connectat... ");
 
             //FLUX DE SORTIDA AL CLIENT
-            PrintWriter fsortida = new PrintWriter(clientConnectat.getOutputStream(), true);
+            PrintWriter fsortida = new PrintWriter(cliente.getOutputStream(), true);
 
             //FLUX D'ENTRADA DEL CLIENT
-            BufferedReader fentrada = new BufferedReader(new InputStreamReader(clientConnectat.getInputStream()));
+            BufferedReader fentrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
             while (!(cadena = fentrada.readLine()).equals("")) {
-
                 fsortida.println(cadena);
                 System.out.println("Rebent: " + cadena);
-                if (cadena.equals("*")) break;
 
             }
 
             //TANCAR STREAMS I SOCKETS
-            System.out.println("Tancant connexió... ");
+            System.out.println("Tancant connexió...");
             fentrada.close();
             fsortida.close();
-            clientConnectat.close();
-        }
-        servidor.close();
+            cliente.close();
+            clientes--;
+            if (clientes <= 0) {
+                cerrarServidor = true;
+            }
+            System.out.println("Clientes conectados: " + clientes);
 
+        } catch (Exception e) {
+            System.out.println("ERROR");
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        int numPort = 60000;
+        ServerSocket servidor = new ServerSocket(numPort);
+
+        do {
+            System.out.println("Esperant connexió del client...");
+            Socket clientConnectat = servidor.accept();
+            ServidorTCP cliente = new ServidorTCP(clientConnectat);
+            cliente.start();
+        } while (!cerrarServidor);
+
+        servidor.close();
 
     }
 
