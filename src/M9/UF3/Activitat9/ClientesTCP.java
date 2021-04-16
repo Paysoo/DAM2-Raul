@@ -28,7 +28,7 @@ public class ClientesTCP {
 
         // HASTA QUE NO HACES UN "ENTER" SIN HABER PUESTO NADA EN LA CADENA, EL CLIENTE NO SE CIERRA Y
         // PETA AL CREAR UNO NUEVO
-        while (!(cadena.equals(""))) {
+        do  {
 
             //Enviament cadena al servidor
             fsortida.println(cadena);
@@ -38,7 +38,12 @@ public class ClientesTCP {
             //Lectura del teclat
             cadena = in.readLine();
 
-        }
+        } while (!(cadena.equals("")));
+        //Enviament cadena al servidor
+        fsortida.println(cadena);
+        //Rebuda cadena del servidor
+        eco = fentrada.readLine();
+        System.out.println("  =>ECO: "+eco);
 
         fsortida.close();
         fentrada.close();

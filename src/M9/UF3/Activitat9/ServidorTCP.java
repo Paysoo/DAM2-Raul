@@ -44,9 +44,6 @@ public class ServidorTCP extends Thread {
             fsortida.close();
             cliente.close();
             clientes--;
-            if (clientes <= 0) {
-                cerrarServidor = true;
-            }
             System.out.println("Clientes conectados: " + clientes);
 
         } catch (Exception e) {
@@ -59,14 +56,14 @@ public class ServidorTCP extends Thread {
         int numPort = 60000;
         ServerSocket servidor = new ServerSocket(numPort);
 
-        do {
+        while (true) {
             System.out.println("Esperant connexió del client...");
             Socket clientConnectat = servidor.accept();
             ServidorTCP cliente = new ServidorTCP(clientConnectat);
             cliente.start();
-        } while (!cerrarServidor);
 
-        servidor.close();
+        }
+        // servidor.close();
 
     }
 
