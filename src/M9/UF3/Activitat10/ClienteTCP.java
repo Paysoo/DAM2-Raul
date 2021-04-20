@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientesTCP {
-    public static void main(String[] args) throws Exception{
+public class ClienteTCP {
+    public static void main(String[] args) throws Exception {
         String host = "localhost";
         int port = 60000;//Port remot
         Socket client = new Socket(host, port);
@@ -27,22 +27,19 @@ public class ClientesTCP {
 
         // HASTA QUE NO HACES UN "ENTER" SIN HABER PUESTO NADA EN LA CADENA, EL CLIENTE NO SE CIERRA Y
         // PETA AL CREAR UNO NUEVO
-        do  {
+        do {
 
             //Enviament cadena al servidor
             fsortida.println(cadena);
             //Rebuda cadena del servidor
             eco = fentrada.readLine();
-            System.out.println("  =>ECO: "+eco);
+            System.out.println("  =>ECO: " + eco);
             //Lectura del teclat
             cadena = in.readLine();
 
         } while (!(cadena.equals("")));
         //Enviament cadena al servidor
         fsortida.println(cadena);
-        //Rebuda cadena del servidor
-        eco = fentrada.readLine();
-        System.out.println("  =>ECO: "+eco);
 
         fsortida.close();
         fentrada.close();
