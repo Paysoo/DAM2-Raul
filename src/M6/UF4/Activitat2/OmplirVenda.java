@@ -22,7 +22,7 @@ public class OmplirVenda {
         int quantitat; //quantita
 
         // Si no hay nada en args pide un numero en la ejecución
-        if (args != null) {
+        if (args.length > 0) {
             idproducte = Integer.parseInt(args[0]);
             quantitat = Integer.parseInt(args[1]);
         } else {
