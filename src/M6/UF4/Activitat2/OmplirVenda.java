@@ -19,7 +19,7 @@ public class OmplirVenda {
     public static void main(String[] args) {
         //Dades d'entrada per a la venda
         int idproducte; //idproducte
-        int quantitat; //quantita
+        int quantitat; //quantitat
 
         // Si no hay nada en args pide un numero en la ejecución
         if (args.length > 0) {
