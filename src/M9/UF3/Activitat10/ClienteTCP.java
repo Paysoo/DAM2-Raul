@@ -5,7 +5,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClienteTCP {
+public class ClienteTCP extends Thread{
+
+    public ClienteTCP(){
+        // FALTA HACER EL CONSTRUCTOR E HILO DEL CLIENTE PARA RECIBIR LOS MENSAJES
+    }
+
     public static void main(String[] args) throws Exception {
         String host = "localhost";
         int port = 60000;//Port remot
@@ -49,4 +54,8 @@ public class ClienteTCP {
 
     }
 
+    @Override
+    public void run() {
+
+    }
 }

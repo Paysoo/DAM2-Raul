@@ -14,10 +14,12 @@ public class ServidorTCP extends Thread {
     Socket cliente;
     static int clientes = 0;
     static int maxClients;
-    Socket[] conexiones = new Socket[3];
+    static Socket[] conexiones = new Socket[3];
+    int numConexion;
 
-    public ServidorTCP(Socket clientConnectat) {
+    public ServidorTCP(Socket clientConnectat, int numConexion) {
         this.cliente = clientConnectat;
+        this.numConexion = numConexion;
     }
 
     @Override
@@ -27,12 +29,11 @@ public class ServidorTCP extends Thread {
         try {
             System.out.println("Client connectat... ");
 
-            for (int i = 0; i <= conexiones.length-1; i++) {
-                if (conexiones[i] == null) {
-                    conexiones[i] = this.cliente;
-                }
-
-            }
+//            for (int i = 0; i <= conexiones.length-1; i++) {
+//                if (conexiones[i] == null) {
+//                    conexiones[i] = this.cliente;
+//                }
+//            }
 
             //FLUX DE SORTIDA AL CLIENT
             PrintWriter fsortida = new PrintWriter(cliente.getOutputStream(), true);
@@ -41,11 +42,16 @@ public class ServidorTCP extends Thread {
             BufferedReader fentrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
             while (!(cadena = fentrada.readLine()).equals("")) {
-                for (int i = 0; i <= conexiones.length-1; i++) {
-                    fsortida = new PrintWriter(conexiones[i].getOutputStream(), true);
-                    fsortida.println(cadena);
-                }
+                fsortida.println(cadena);
                 System.out.println("Rebent: " + cadena);
+
+                for (int i = 0; i <= conexiones.length-1; i++) {
+                    if (i != numConexion) {
+                        fsortida = new PrintWriter(conexiones[i].getOutputStream(), true);
+                        fsortida.println(cadena);
+                    }
+
+                }
 
             }
 
@@ -78,9 +84,11 @@ public class ServidorTCP extends Thread {
             if (clientes < maxClients) {
                 System.out.println("Esperant connexió del client...");
                 Socket clientConnectat = servidor.accept();
-                ServidorTCP cliente = new ServidorTCP(clientConnectat);
+                ServidorTCP cliente = new ServidorTCP(clientConnectat, clientes);
                 cliente.start();
+                conexiones[clientes] = clientConnectat;
                 clientes++;
+
             }
             sleep(300);
         }
