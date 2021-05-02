@@ -18,15 +18,16 @@ public class ClienteTCP extends Thread {
     public void run() {
         try {
 
+            BufferedReader servEntrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            String msgServer = "";
 
-            while (true) {
-                BufferedReader servEntrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                String msgServer = "";
+            while (msgServer != null && !(msgServer = servEntrada.readLine()).equals("")) {
                 //Rebuda cadena del servidor
-                msgServer = servEntrada.readLine();
-                System.out.println(" %% Other user: " + msgServer);
+                System.out.println(" %% Other user: " + msgServer + " %%");
 
             }
+
+            servEntrada.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,17 +60,17 @@ public class ClienteTCP extends Thread {
             //Enviament cadena al servidor
             fsortida.println(cadena);
 
-
         } while (!(cadena.equals("")));
+
+        recibirServer.stop();
+
         //Enviament cadena al servidor
         fsortida.println(cadena);
 
         fsortida.close();
-        fentrada.close();
         System.out.println("Finalització de l'enviament...");
         in.close();
         client.close();
-        System.exit(0);
 
     }
 
