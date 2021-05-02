@@ -42,15 +42,14 @@ public class ServidorTCP extends Thread {
             BufferedReader fentrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
             while (!(cadena = fentrada.readLine()).equals("")) {
-                fsortida.println(cadena);
-                System.out.println("Rebent: " + cadena);
+//                fsortida.println(cadena);
+                    System.out.println("Rebent: " + cadena);
 
                 for (int i = 0; i <= conexiones.length-1; i++) {
-                    if (i != numConexion) {
+                    if (i != numConexion && conexiones[i] != null) {
                         fsortida = new PrintWriter(conexiones[i].getOutputStream(), true);
                         fsortida.println(cadena);
                     }
-
                 }
 
             }
@@ -68,7 +67,7 @@ public class ServidorTCP extends Thread {
 
 
         } catch (Exception e) {
-            System.out.println("ERROR");
+            System.out.println(e);
         }
     }
 

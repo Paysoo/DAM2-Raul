@@ -1,20 +1,42 @@
 package M9.UF3.Activitat10;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClienteTCP extends Thread{
+public class ClienteTCP extends Thread {
+    static String host = "localhost";
+    static int port = 60000;//Port remot
+    static Socket client;
 
-    public ClienteTCP(){
-        // FALTA HACER EL CONSTRUCTOR E HILO DEL CLIENTE PARA RECIBIR LOS MENSAJES
+    public ClienteTCP() {
+    }
+
+    @Override
+    public void run() {
+        try {
+
+
+            while (true) {
+                BufferedReader servEntrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                String msgServer = "";
+                //Rebuda cadena del servidor
+                msgServer = servEntrada.readLine();
+                System.out.println(" %% Other user: " + msgServer);
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) throws Exception {
-        String host = "localhost";
-        int port = 60000;//Port remot
-        Socket client = new Socket(host, port);
+
+        client = new Socket(host, port);
 
         //FLUX DE SORTIDA AL SERVIDOR
         PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
@@ -25,22 +47,18 @@ public class ClienteTCP extends Thread{
         //FLUX PER A ENTRADA ESTÀNDARD
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-        String cadena, eco = "";
+        String cadena = "";
         System.out.println("Introdueix la cadena: ");
-        //Lectura teclat
-        cadena = in.readLine();
 
-        // HASTA QUE NO HACES UN "ENTER" SIN HABER PUESTO NADA EN LA CADENA, EL CLIENTE NO SE CIERRA Y
-        // PETA AL CREAR UNO NUEVO
+        ClienteTCP recibirServer = new ClienteTCP();
+        recibirServer.start();
+
         do {
-
-            //Enviament cadena al servidor
-            fsortida.println(cadena);
-            //Rebuda cadena del servidor
-            eco = fentrada.readLine();
-            System.out.println("  =>ECO: " + eco);
             //Lectura del teclat
             cadena = in.readLine();
+            //Enviament cadena al servidor
+            fsortida.println(cadena);
+
 
         } while (!(cadena.equals("")));
         //Enviament cadena al servidor
@@ -51,11 +69,8 @@ public class ClienteTCP extends Thread{
         System.out.println("Finalització de l'enviament...");
         in.close();
         client.close();
+        System.exit(0);
 
     }
 
-    @Override
-    public void run() {
-
-    }
 }
