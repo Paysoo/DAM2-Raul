@@ -27,7 +27,6 @@ public class ServidorTCP extends Thread {
     @Override
     public void run() {
         String cadena;
-
         boolean username = false;
 
         try {

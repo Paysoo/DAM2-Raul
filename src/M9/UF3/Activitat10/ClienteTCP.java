@@ -17,7 +17,6 @@ public class ClienteTCP extends Thread {
     @Override
     public void run() {
         try {
-
             BufferedReader servEntrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
             String msgServer = "";
 
