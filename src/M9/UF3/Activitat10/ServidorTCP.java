@@ -16,15 +16,19 @@ public class ServidorTCP extends Thread {
     static int maxClients;
     static PrintWriter[] printWriters = new PrintWriter[3];
     int numConexion;
+    String nombre;
 
-    public ServidorTCP(Socket clientConnectat, int numConexion) {
+    public ServidorTCP(Socket clientConnectat, int numConexion, String nombre) {
         this.cliente = clientConnectat;
         this.numConexion = numConexion;
+        this.nombre = nombre;
     }
 
     @Override
     public void run() {
         String cadena;
+
+        boolean username = false;
 
         try {
             System.out.println("Client connectat... ");
@@ -35,12 +39,21 @@ public class ServidorTCP extends Thread {
             //FLUX D'ENTRADA DEL CLIENT
             BufferedReader fentrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
-            while (!(cadena = fentrada.readLine()).equals("")) {
-                System.out.println("Rebent: " + cadena);
+            do {
+                if (!(cadena = fentrada.readLine()).startsWith("--nom ")) {
+                    printWriters[numConexion].println("Por favor, introduce --nom seguido de tu nombre.");
+                } else {
+                    nombre = cadena.substring(6);
+                    username = true;
+                }
+            } while (!username);
 
-                for (int i = 0; i <= printWriters.length-1; i++) {
+            while (!(cadena = fentrada.readLine()).equals("")) {
+                System.out.println(nombre + ": " + cadena);
+
+                for (int i = 0; i <= printWriters.length - 1; i++) {
                     if (i != numConexion && printWriters[i] != null) {
-                        printWriters[i].println(cadena);
+                        printWriters[i].println(nombre + ": " + cadena);
 
                     }
                 }
@@ -69,11 +82,11 @@ public class ServidorTCP extends Thread {
         ServerSocket servidor = new ServerSocket(numPort);
         maxClients = Integer.valueOf(args[0]);
 
-        while (true){
+        while (true) {
             if (clientes < maxClients) {
                 System.out.println("Esperant connexió del client...");
                 Socket clientConnectat = servidor.accept();
-                ServidorTCP cliente = new ServidorTCP(clientConnectat, clientes);
+                ServidorTCP cliente = new ServidorTCP(clientConnectat, clientes, "");
                 cliente.start();
                 clientes++;
 

@@ -23,7 +23,7 @@ public class ClienteTCP extends Thread {
 
             while (msgServer != null && !(msgServer = servEntrada.readLine()).equals("")) {
                 //Rebuda cadena del servidor
-                System.out.println(" %% Other user: " + msgServer + " %%");
+                System.out.println(msgServer);
 
             }
 
@@ -42,14 +42,11 @@ public class ClienteTCP extends Thread {
         //FLUX DE SORTIDA AL SERVIDOR
         PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
 
-        //FLUX D'ENTRADA AL SERVIDOR
-        BufferedReader fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
         //FLUX PER A ENTRADA ESTÀNDARD
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
         String cadena = "";
-        System.out.println("Introdueix la cadena: ");
+        System.out.println("Introdueix --nom mes el teu nom: ");
 
         ClienteTCP recibirServer = new ClienteTCP();
         recibirServer.start();
