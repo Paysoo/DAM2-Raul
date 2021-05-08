@@ -12,6 +12,7 @@ public class Cuenta {
     private double tranferenciaHecha;
     private String ultimaTransferencia = "0000";
 
+    // Faltan comentarios
     public Cuenta() {
     }
 
